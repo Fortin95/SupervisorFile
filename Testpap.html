@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Information Client</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- User Info Bar -->
+    <div class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span id="userName" class="font-medium"></span>
+                <span id="userRole" class="text-sm text-gray-500"></span>
+            </div>
+            <button onclick="logout()" class="text-sm text-red-600 hover:text-red-800">
+                Se déconnecter
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto p-6">
+        <form id="clientForm" class="space-y-6">
+            <!-- Visit Information Section -->
+            <div class="border-b pb-4 mb-4">
+                <h2 class="text-lg font-bold mb-4 text-gray-800">Information de la visite</h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Date de la réception</label>
+                        <input type="date" name="dateReception" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Date de la présentation</label>
+                        <input type="date" name="datePresentation" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Heure de la présentation</label>
+                        <input type="time" name="heurePresentation" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Distributeur</label>
+                        <input type="text" name="distributeur" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Superviseur</label>
+                        <input type="text" name="superviseur" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Client Information Section -->
+            <div class="border-b pb-4 mb-4">
+                <h2 class="text-lg font-bold mb-4 text-gray-800">Information du client</h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Nom Complet (1)</label>
+                        <input type="text" name="nomComplet1" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Nom Complet (2)</label>
+                        <input type="text" name="nomComplet2" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Adresse complète</label>
+                        <input type="text" name="adresse" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Ville</label>
+                        <input type="text" name="ville" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Code postal</label>
+                        <input type="text" name="codePostal" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Cellulaire (1)</label>
+                        <input type="tel" name="cellulaire1" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Cellulaire (2)</label>
+                        <input type="tel" name="cellulaire2" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Information Section -->
+            <div class="border-b pb-4 mb-4">
+                <h2 class="text-lg font-bold mb-4 text-gray-800">Information additionnelle</h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Emploie des clients</label>
+                        <input type="text" name="emploi" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Statut</label>
+                        <select name="statut" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Sélectionner...</option>
+                            <option value="proprietaire">Propriétaire</option>
+                            <option value="locataire">Locataire</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Nombre de personne dans la maison</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-gray-700 text-sm">Adulte</label>
+                                <input type="number" name="nombreAdultes" min="0" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 text-sm">Enfant</label>
+                                <input type="number" name="nombreEnfants" min="0" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Food & Freezer Section -->
+            <div class="border-b pb-4 mb-4">
+                <h2 class="text-lg font-bold mb-4 text-gray-800">Information sur l'alimentation</h2>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Budget épicerie Global</label>
+                        <input type="text" name="budgetEpicerie" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Protéine par semaine</label>
+                        <input type="text" name="proteineParSemaine" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Congélateur autre que celui du frigo</label>
+                        <select name="congelateurAutre" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Sélectionner...</option>
+                            <option value="oui">Oui</option>
+                            <option value="non">Non</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Place pour un congélateur</label>
+                        <select name="placeCongel" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Sélectionner...</option>
+                            <option value="oui">Oui</option>
+                            <option value="non">Non</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Capacité du congélateur</label>
+                        <select name="grandeurCongel" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Sélectionner...</option>
+                            <option value="vide">Vide</option>
+                            <option value="moitie">Moitié</option>
+                            <option value="plein">Plein</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="mb-4">
+                <h2 class="text-lg font-bold mb-4 text-gray-800">Notes</h2>
+                <div>
+                    <label class="block text-gray-700 text-sm font-medium mb-1">Note Importante</label>
+                    <textarea name="noteImportante" rows="4" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-gray-700 text-sm font-medium mb-1">Fournisseur</label>
+                    <textarea name="fournisseur" rows="4" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg text-lg font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Envoyer
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1335042984584151040/QeZ3FhVq7PNZsEQKzQihOLKbaGU1UuK_eMTZgdmO_P9jF77H01ssthp6vGX6cHfNj7FX';
+        
+        function checkAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'index.html';  // Changed from login.html to index.html
+                return;
+            }
+
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userRole').textContent = 
+                currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier';
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';  // Changed from login.html to index.html
+        }
+
+        window.addEventListener('load', checkAuth);
+        
+        document.getElementById('clientForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Envoi en cours...';
+            
+            const form = new FormData(this);
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            const messageContent = {
+                embeds: [{
+                    title: '📋 Nouvelle Fiche Client',
+                    color: 3447003,
+                    fields: [
+                        {
+                            name: '📅 Information de la visite',
+                            value: [
+                                `**Date de réception:** ${form.get('dateReception')}`,
+                                `**Date de présentation:** ${form.get('datePresentation')}`,
+                                `**Heure de présentation:** ${form.get('heurePresentation')}`,
+                                `**Distributeur:** ${form.get('distributeur')}`,
+                                `**Superviseur:** ${form.get('superviseur')}`
+                            ].join('\n'),
+                            inline: false
+                        },
+                        {
+                            name: '👤 Information du client',
+                            value: [
+                                `**Nom (1):** ${form.get('nomComplet1')}`,
+                                `**Nom (2):** ${form.get('nomComplet2')}`,
+                                `**Adresse:** ${form.get('adresse')}`,
+                                `**Ville:** ${form.get('ville')}`,
+                                `**Code postal:** ${form.get('codePostal')}`,
+                                `**Cellulaire (1):** ${form.get('cellulaire1')}`,
+                                `**Cellulaire (2):** ${form.get('cellulaire2')}`
+                            ].join('\n'),
+                            inline: false
+                        },
+                        {
+                            name: 'ℹ️ Information additionnelle',
+                            value: [
+                                `**Emploi:** ${form.get('emploi')}`,
+                                `**Statut:** ${form.get('statut')}`,
+                                `**Adultes:** ${form.get('nombreAdultes')}`,
+                                `**Enfants:** ${form.get('nombreEnfants')}`
+                            ].join('\n'),
+                            inline: false
+                        },
+                        {
+                            name: '🍖 Information sur l\'alimentation',
+                            value: [
+                                `**Budget épicerie:** ${form.get('budgetEpicerie')}`,
+                                `**Protéine/semaine:** ${form.get('proteineParSemaine')}`,
+                                `**Autre congélateur:** ${form.get('congelateurAutre')}`,
+                                `**Place congélateur:** ${form.get('placeCongel')}`,
+                                `**État congélateur:** ${form.get('grandeurCongel')}`
+                            ].join('\n'),
+                            inline: false
+                        },
+                        {
+                            name: '📝 Notes',
+                            value: [
+                                `**Note importante:** ${form.get('noteImportante') || 'Aucune'}`,
+                                `**Fournisseur:** ${form.get('fournisseur') || 'Aucun'}`
+                            ].join('\n'),
+                            inline: false
+                        }
+                    ],
+                    footer: {
+                        text: `Soumis par: ${currentUser.name} (${currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier'})`
+                    }
+                }]
+            };
+
+            try {
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(messageContent)
+                });
+
+                if (response.ok) {
+                    alert('Information envoyée avec succès!');
+                    this.reset();
+                } else {
+                    throw new Error('Erreur lors de l\'envoi');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Envoyer';
+            }
+        });
+    </script>
+</body>
+</html>
