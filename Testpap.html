@@ -235,6 +235,19 @@ function logout() {
     window.location.href = 'index.html';
 }
 
+function formatPhoneNumber(phoneNumber) {
+    // Remove all non-numeric characters
+    const cleaned = phoneNumber.replace(/\D/g, '');
+    
+    // Check if we have a 10-digit number
+    if(cleaned.length === 10) {
+        return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+    }
+    
+    // If not 10 digits, return original input
+    return phoneNumber;
+}
+
 function createMessageContent(form, currentUser) {
     return {
         embeds: [{
@@ -261,8 +274,8 @@ function createMessageContent(form, currentUser) {
                         `**Courriel:** ${form.get('courriel')}`,
                         `**Ville:** ${form.get('ville')}`,
                         `**Code postal:** ${form.get('codePostal')}`,
-                        `**Cellulaire (1):** ${form.get('cellulaire1')}`,
-                        `**Cellulaire (2):** ${form.get('cellulaire2')}`
+                        `**Cellulaire (1):** ${formatPhoneNumber(form.get('cellulaire1') || '')}`,
+                        `**Cellulaire (2):** ${formatPhoneNumber(form.get('cellulaire2') || '')}`
                     ].join('\n'),
                     inline: false
                 },
