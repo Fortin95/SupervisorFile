@@ -6,16 +6,36 @@
     <title>Connexion - Alimentation Première</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-         .bg-image-overlay {
-     background-image: 
-          url('https://www.alimentationpremiere.ca/wp-content/uploads/2025/01/cropped-Logo-AP-Rougeombre.png'),
-          url('https://www.alimentationpremiere.ca/wp-content/uploads/2025/01/cropped-Logo-AP-Rougeombre.png'),
-          linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85));
-     background-size: 50px 50px, 50px 50px, cover;  /* Set exact dimensions */
-     background-position: left 10% center, right 10% center, center;
-     background-repeat: no-repeat, no-repeat, no-repeat;
-     background-attachment: fixed;
+.bg-image-overlay {
+    position: relative; /* Needed for absolute positioning of pseudo-elements */
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)); /* Keep gradient */
+    height: 100vh; /* Full screen height */
+    width: 100vw; /* Full screen width */
+    overflow: hidden; /* Prevent unwanted scrolling */
 }
+
+.bg-image-overlay::before,
+.bg-image-overlay::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 80px; /* Adjust logo size */
+    height: 80px; /* Adjust logo size */
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: translateY(-50%); /* Center vertically */
+}
+
+.bg-image-overlay::before {
+    left: 5%; /* Adjust left logo position */
+    background-image: url('https://www.alimentationpremiere.ca/wp-content/uploads/2025/01/cropped-Logo-AP-Rougeombre.png');
+}
+
+.bg-image-overlay::after {
+    right: 5%; /* Adjust right logo position */
+    background-image: url('https://www.alimentationpremiere.ca/wp-content/uploads/2025/01/cropped-Logo-AP-Rougeombre.png');
+}
+
 
 
         .glass-effect {
