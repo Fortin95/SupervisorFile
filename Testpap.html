@@ -174,11 +174,45 @@
                 </div>
             </div>
 
-            <!-- Submit Button -->
+    <!-- Submit Button -->
             <button type="submit" id="submitBtn" class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg text-lg font-medium hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 Envoyer
             </button>
         </form>
+    </div>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-4xl shadow-lg rounded-md bg-white">
+            <div class="flex flex-col h-full">
+                <!-- Modal Header -->
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-2xl font-bold">Aperçu du message</p>
+                    <button id="closeModal" class="text-gray-400 hover:text-gray-500">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Discord-like Preview -->
+                <div class="mt-4 bg-[#36393f] rounded-lg p-4 text-white">
+                    <div id="previewContent" class="space-y-4">
+                        <!-- Preview content will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="flex justify-end gap-4 mt-4">
+                    <button id="modifyBtn" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">
+                        Modifier
+                    </button>
+                    <button id="confirmSendBtn" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                        Confirmer l'envoi
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
