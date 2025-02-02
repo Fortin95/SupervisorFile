@@ -335,6 +335,7 @@ async function sendToDiscord(messageContent, form) {
 }
 
 function showPreview(messageContent) {
+    console.log('Showing preview:', messageContent); // Debug log
     const modal = document.getElementById('previewModal');
     const previewContent = document.getElementById('previewContent');
     
@@ -382,41 +383,50 @@ function showPreview(messageContent) {
     modal.classList.remove('hidden');
 }
 
-// Event Listeners
-window.addEventListener('load', checkAuth);
+// Initialize event listeners
+function initializeEventListeners() {
+    console.log('Initializing event listeners'); // Debug log
 
-// Form submit handler
-document.getElementById('clientForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = new FormData(this);
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const messageContent = createMessageContent(form, currentUser);
-    showPreview(messageContent);
-});
+    // Form submit handler
+    document.getElementById('clientForm').addEventListener('submit', function(e) {
+        console.log('Form submitted'); // Debug log
+        e.preventDefault();
+        const form = new FormData(this);
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const messageContent = createMessageContent(form, currentUser);
+        showPreview(messageContent);
+    });
 
-// Modal close button handler
-document.getElementById('closeModal').addEventListener('click', function() {
-    document.getElementById('previewModal').classList.add('hidden');
-});
+    // Modal close button handler
+    document.getElementById('closeModal').addEventListener('click', function() {
+        document.getElementById('previewModal').classList.add('hidden');
+    });
 
-// Modify button handler
-document.getElementById('modifyBtn').addEventListener('click', function() {
-    document.getElementById('previewModal').classList.add('hidden');
-});
+    // Modify button handler
+    document.getElementById('modifyBtn').addEventListener('click', function() {
+        document.getElementById('previewModal').classList.add('hidden');
+    });
 
-// Confirm send button handler
-document.getElementById('confirmSendBtn').addEventListener('click', async function() {
-    const form = document.getElementById('clientForm');
-    const formData = new FormData(form);
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const messageContent = createMessageContent(formData, currentUser);
-    
-    document.getElementById('previewModal').classList.add('hidden');
-    const success = await sendToDiscord(messageContent, form);
-    
-    if (success) {
-        form.reset();
-    }
+    // Confirm send button handler
+    document.getElementById('confirmSendBtn').addEventListener('click', async function() {
+        const form = document.getElementById('clientForm');
+        const formData = new FormData(form);
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const messageContent = createMessageContent(formData, currentUser);
+        
+        document.getElementById('previewModal').classList.add('hidden');
+        const success = await sendToDiscord(messageContent, form);
+        
+        if (success) {
+            form.reset();
+        }
+    });
+}
+
+// Initialize when the page loads
+window.addEventListener('load', () => {
+    checkAuth();
+    initializeEventListeners();
 });
     </script>
 </body>
