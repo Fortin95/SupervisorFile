@@ -491,6 +491,11 @@ function initializeEventListeners() {
     document.getElementById('clientForm').addEventListener('submit', function(e) {
         console.log('Form submitted'); // Debug log
         e.preventDefault();
+        
+        // Generate order number at submission
+        const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+        orderNumberInput.value = generateOrderNumber();
+        
         const form = new FormData(this);
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const messageContent = createMessageContent(form, currentUser);
