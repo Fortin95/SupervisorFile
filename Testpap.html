@@ -371,29 +371,24 @@ function createMessageContent(form, currentUser) {
 }
 function generateOrderNumber() {
     const date = new Date();
-    const year = date.getFullYear().toString().substr(-2);
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    
-    // Add hours and minutes to make it unique across simultaneous submissions
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
     
     // Generate a random 3-digit number (000-999)
     const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
     
     // Combine everything into the order number
-    // Format: AP + YY + MM + DD + HHmm + RRR
-    // Example: AP + 25 + 02 + 14 + 1423 + 847
-    return `AP${year}${month}${day}${hours}${minutes}${random}`;
+    // Format: AP  + MM + DD  + RRR
+    // Example: AP  + 02 + 14  + 847
+    return `AP${month}${day}${random}`;
 }
 
 // Update the HTML pattern to match the new format
 document.addEventListener('DOMContentLoaded', function() {
     const orderNumberInput = document.querySelector('input[name="orderNumber"]');
     if (orderNumberInput) {
-        orderNumberInput.pattern = "AP\\d{13}"; // Updated to match 13 digits after AP
-        orderNumberInput.title = "Format: AP + YYMMDDHHmmRRR";
+        orderNumberInput.pattern = "AP\\d{7}"; // Updated to match 7 digits after AP
+        orderNumberInput.title = "Format: AP + MMDDRRR";
     }
 });
 async function sendToDiscord(messageContent, form) {
