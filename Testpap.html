@@ -291,10 +291,23 @@ function formatPhoneNumber(phoneNumber) {
     // If not 10 digits, return original input
     return phoneNumber;
 }
-
+// Add this function to encode the address for Google Maps
+function createGoogleMapsLink(address, ville, codePostal) {
+    // Combine address components and encode for URL
+    const fullAddress = `${address}, ${ville}, ${codePostal}, QC, Canada`;
+    const encodedAddress = encodeURIComponent(fullAddress);
+    return `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+}
 function createMessageContent(form, currentUser) {
     const orderNumber = form.get('orderNumber') || 'Non spécifié';
     const region = form.get('region') || 'Non spécifiée';
+    const mapsLink = createGoogleMapsLink(
+        form.get('adresse'),
+        form.get('ville'),
+        form.get('codePostal')
+    );
+    
+
     return {
         embeds: [{
             title: `📋 Nouvelle Fiche Client - ${orderNumber}`,
@@ -324,7 +337,7 @@ function createMessageContent(form, currentUser) {
                     value: [
                         `**Nom (1):** ${form.get('nomComplet1')}`,
                         `**Nom (2):** ${form.get('nomComplet2')}`,
-                        `**Adresse:** ${form.get('adresse')}`,
+                        `**Adresse:** [${form.get('adresse')}, ${form.get('ville')}, ${form.get('codePostal')}](${mapsLink})`,
                         `**Courriel:** ${form.get('courriel')}`,
                         `**Ville:** ${form.get('ville')}`,
                         `**Code postal:** ${form.get('codePostal')}`,
