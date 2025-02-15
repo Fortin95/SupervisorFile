@@ -64,6 +64,35 @@
                             <input type="text" name="superviseur" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
                         </div>
                     </div>
+                </div>				
+                        <div class="border-b border-red-800/10 pb-4 mb-4">
+                            <h2 class="text-lg font-bold mb-4 text-gray-900 border-b border-red-800/20 pb-2">Information de suivi</h2>
+                            <div class="space-y-3"> 
+       				<div>
+         			    <label class="block text-gray-700 text-sm font-medium mb-1">Numéro de commande</label>
+        		      	    <input type="text" name="orderNumber" 
+           				 class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90"
+               			         pattern="AP\d{6}"
+           			         title="Format: AP suivi de 6 chiffres (ex: AP123456)"
+             			         required>
+                           	     <p class="text-sm text-gray-500 mt-1">Format: AP123456</p>
+      				  </div>
+       				  <div>
+           			      <label class="block text-gray-700 text-sm font-medium mb-1">Région</label>
+           			      <select name="region" 
+                			   class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90"
+                			   required>
+                			   <option value="">Sélectionner une région...</option>
+                			   <option value="sherbrooke">Sherbrooke</option>
+                			   <option value="blainville">Blainville</option>
+                		           <option value="saint-mathieu-de-beloeil">Saint-Mathieu-De-Beloeil</option>
+                			   <option value="trois-riviere">Trois-Rivière</option>
+                                           <option value="vaudreuil">Vaudreuil</option>
+                                           <option value="quebec">Québec</option>
+					   <option value="gatineau">Gatineau</option>
+            				</select>
+        			    </div>
+   			        </div>
 			    </div>
 
                 <!-- Client Information Section -->
@@ -263,11 +292,21 @@ function formatPhoneNumber(phoneNumber) {
 }
 
 function createMessageContent(form, currentUser) {
+    const orderNumber = form.get('orderNumber') || 'Non spécifié';
+    const region = form.get('region') || 'Non spécifiée';
     return {
         embeds: [{
-            title: '📋 Nouvelle Fiche Client',
+            title: `📋 Nouvelle Fiche Client - ${orderNumber}`,
             color: 3447003,
             fields: [
+		{
+                     name: '🔍 Information de suivi',
+                     value: [
+                        `**Numéro de commande:** ${orderNumber}`,
+                        `**Région:** ${region}`
+                   ].join('\n'),
+                   inline: false
+                },
                 {
                     name: '📅 Information de la visite',
                     value: [
@@ -324,12 +363,19 @@ function createMessageContent(form, currentUser) {
                 }
             ],
             footer: {
-                text: `Soumis par: ${currentUser.name} (${currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier'})`
+                text: `Soumis par: ${currentUser.name} (${currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier'}) | ${orderNumber}`
             }
         }]
     };
 }
-
+function generateOrderNumber() {
+    const date = new Date();
+    const year = date.getFullYear().toString().substr(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const random = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+    return `AP${year}${month}${day}${random}`;
+}
 async function sendToDiscord(messageContent, form) {
     const submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
@@ -414,6 +460,13 @@ function showPreview(messageContent) {
 function initializeEventListeners() {
     console.log('Initializing event listeners'); // Debug log
 
+	 // Add this new code
+    document.addEventListener('DOMContentLoaded', function() {
+        const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+        if (orderNumberInput) {
+            orderNumberInput.value = generateOrderNumber();
+        }
+    });
     // Form submit handler
     document.getElementById('clientForm').addEventListener('submit', function(e) {
         console.log('Form submitted'); // Debug log
