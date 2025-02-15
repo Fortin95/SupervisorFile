@@ -378,9 +378,9 @@ function generateOrderNumber() {
     const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
     
     // Combine everything into the order number
-    // Format: AP  + MM + DD  + RRR
+    // Format: AP  + DD + MM  + RRR
     // Example: AP  + 02 + 14  + 847
-    return `AP${month}${day}${random}`;
+    return `AP${day}${month}${random}`;
 }
 
 // Update the HTML pattern to match the new format
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderNumberInput = document.querySelector('input[name="orderNumber"]');
     if (orderNumberInput) {
         orderNumberInput.pattern = "AP\\d{7}"; // Updated to match 7 digits after AP
-        orderNumberInput.title = "Format: AP + MMDDRRR";
+        orderNumberInput.title = "Format: AP + DDMMRRR";
     }
 });
 async function sendToDiscord(messageContent, form) {
