@@ -318,19 +318,12 @@ function createMessageContent(form, currentUser) {
         form.get('codePostal')
     );
     
-    // Create title with client names
-    let title = `📋 ${clientName1}`;
-    if (clientName2 && clientName2.trim() !== '') {
-        title += ` & ${clientName2}`;
-    }
-    title += ` - ${orderNumber}`;
-
     return {
-        embeds: [{
-            title: `📋 Nouvelle Fiche Client - ${orderNumber}`,
-            color: 3447003,
-            fields: [
-		{
+    embeds: [{
+        title: `📋 ${clientName1}${clientName2 ? ` & ${clientName2}` : ''} - ${orderNumber}`,
+        color: 3447003,
+        fields: [
+            {
                      name: '🔍 Information de suivi',
                      value: [
                         `**Numéro de commande:** ${orderNumber}`,
