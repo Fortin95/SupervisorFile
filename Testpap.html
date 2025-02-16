@@ -53,7 +53,15 @@
                         </div>
                         <div>
                             <label class="block text-gray-700 text-sm font-medium mb-1">Heure de la présentation</label>
-                            <input type="time" name="heurePresentation" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
+                            <select name="heurePresentation" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90" required>
+                                <option value="">Sélectionner une heure...</option>
+                                <option value="09:00">09:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="17:00">17:00</option>
+                                <option value="19:00">19:00</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-gray-700 text-sm font-medium mb-1">Distributeur</label>
@@ -298,8 +306,11 @@ function createGoogleMapsLink(address, ville, codePostal) {
     const encodedAddress = encodeURIComponent(fullAddress);
     return `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
 }
+
 function createMessageContent(form, currentUser) {
     const orderNumber = form.get('orderNumber') || 'Non spécifié';
+    const clientName1 = form.get('nomComplet1');
+    const clientName2 = form.get('nomComplet2');
     const region = form.get('region') || 'Non spécifiée';
     const mapsLink = createGoogleMapsLink(
         form.get('adresse'),
@@ -307,6 +318,12 @@ function createMessageContent(form, currentUser) {
         form.get('codePostal')
     );
     
+    // Create title with client names
+    let title = `📋 ${clientName1}`;
+    if (clientName2 && clientName2.trim() !== '') {
+        title += ` & ${clientName2}`;
+    }
+    title += ` - ${orderNumber}`;
 
     return {
         embeds: [{
