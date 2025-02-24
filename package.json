@@ -1,0 +1,15 @@
+{
+  "name": "alimentation-premiere-app",
+  "version": "1.0.0",
+  "description": "Application web pour Alimentation Première",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
