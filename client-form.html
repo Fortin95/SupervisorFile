@@ -184,25 +184,17 @@
                             <label class="block text-gray-700 text-sm font-medium mb-1">Congélateur autre que celui du frigo</label>
                             <select name="congelateurAutre" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
                                 <option value="">Sélectionner...</option>
-                                <option value="oui">Oui</option>
-                                <option value="non">Non</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-gray-700 text-sm font-medium mb-1">Place pour un congélateur</label>
-                            <select name="placeCongel" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
-                                <option value="">Sélectionner...</option>
-                                <option value="oui">Oui</option>
-                                <option value="non">Non</option>
+                                <option value="OUI">Oui</option>
+                                <option value="NON">Non</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-gray-700 text-sm font-medium mb-1">Capacité du congélateur</label>
                             <select name="grandeurCongel" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
                                 <option value="">Sélectionner...</option>
-                                <option value="vide">Vide</option>
-                                <option value="moitie">Moitié</option>
-                                <option value="plein">Plein</option>
+                                <option value="VIDE">Vide</option>
+                                <option value="MOITIÉ">Moitié</option>
+                                <option value="PLEIN">Plein</option>
                             </select>
                         </div>
                     </div>
@@ -357,7 +349,6 @@
                         { label: "Budget épicerie", value: formData.get('budgetEpicerie') || 'Non spécifié' },
                         { label: "Protéine/semaine", value: formData.get('proteineParSemaine') || 'Non spécifié' },
                         { label: "Autre congélateur", value: formData.get('congelateurAutre') || 'Non spécifié' },
-                        { label: "Place congélateur", value: formData.get('placeCongel') || 'Non spécifié' },
                         { label: "État congélateur", value: formData.get('grandeurCongel') || 'Non spécifié' }
                     ]
                 },
@@ -373,7 +364,14 @@
             return sections;
         }
 
-        function showPreview(formData) {
+           function showPreview(formData) {
+           // S'assurer que le numéro de commande est à jour
+           const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+           if (orderNumberInput) {
+               // Mettre à jour formData avec la valeur actuelle du numéro de commande
+               formData.set('orderNumber', orderNumberInput.value);
+           }
+    
             const modal = document.getElementById('previewModal');
             const previewContent = document.getElementById('previewContent');
             
@@ -450,9 +448,9 @@
                         { name: "conjoint_e_", value: formData.get('nomComplet2') },
                         { name: "adresse", value: formData.get('adresse') },
                         { name: "email", value: formData.get('courriel') },
-                        { name: "city", value: formData.get('ville') },
+                        { name: "city", value: formData.get('ville'), objectTypeId: "0-1" },
                         { name: "zip", value: formData.get('codePostal') },
-                        { name: "mobilephone", value: formData.get('cellulaire1') },
+                        { name: "phone", value: formData.get('cellulaire1') },
                         { name: "cell_conjoint_e_", value: formData.get('cellulaire2') },
                         
                         // Information additionnelle
@@ -464,7 +462,6 @@
                         { name: "budget_epicerie_global", value: formData.get('budgetEpicerie') },
                         { name: "proteine_par_semaine", value: formData.get('proteineParSemaine') },
                         { name: "congelateur_present", value: formData.get('congelateurAutre') },
-                        { name: "place_pour_congelateur", value: formData.get('placeCongel') },
                         { name: "capacite_de_congelateur", value: formData.get('grandeurCongel') },
                         
                         // Notes
@@ -524,10 +521,16 @@
             
             // Form submit handler
             document.getElementById('clientForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(this);
-                showPreview(formData);
+            e.preventDefault();
+        
+            // Regénérer le numéro de commande si vide
+            const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+            if (orderNumberInput && !orderNumberInput.value) {
+                orderNumberInput.value = generateOrderNumber();
+            }
+        
+            const formData = new FormData(this);
+            showPreview(formData);
             });
 
             // Modal close button handler
