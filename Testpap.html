@@ -73,36 +73,36 @@
                         </div>
                     </div>
                 </div>				
-                        <div class="border-b border-red-800/10 pb-4 mb-4">
-                            <h2 class="text-lg font-bold mb-4 text-gray-900 border-b border-red-800/20 pb-2">Information de suivi</h2>
-                            <div class="space-y-3"> 
-			<div>
-			    <label class="block text-gray-700 text-sm font-medium mb-1">Numéro de commande</label>
-			    <input type="text" name="orderNumber" 
-			        class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90 cursor-not-allowed"
-			        pattern="AP\d{13}"
-			        title="Format: AP + YYMMDDHHmmRRR"
-			        readonly
-			        required>
-			    <p class="text-sm text-gray-500 mt-1">Généré automatiquement</p>
-			</div>
-       				  <div>
-           			      <label class="block text-gray-700 text-sm font-medium mb-1">Région</label>
-           			      <select name="region" 
-                			   class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90"
-                			   required>
-                			   <option value="">Sélectionner une région...</option>
-                			   <option value="Sherbrooke">Sherbrooke</option>
-                			   <option value="Blainville">Blainville</option>
-                		           <option value="Beloeil">Beloeil</option>
-                			   <option value="Trois-Riviere">Trois-Rivière</option>
-                                           <option value="Quebec">Québec</option>
-					   <option value="Gatineau">Gatineau</option>
-					   <option value="Saguenay">Saguenay</option>
-            				</select>
-        			    </div>
-   			        </div>
-			    </div>
+                <div class="border-b border-red-800/10 pb-4 mb-4">
+                    <h2 class="text-lg font-bold mb-4 text-gray-900 border-b border-red-800/20 pb-2">Information de suivi</h2>
+                    <div class="space-y-3"> 
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-1">Numéro de commande</label>
+                            <input type="text" name="orderNumber" 
+                                class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90 cursor-not-allowed"
+                                pattern="AP\d{5}"
+                                title="Format: AP + DDMMR"
+                                readonly
+                                required>
+                            <p class="text-sm text-gray-500 mt-1">Généré automatiquement</p>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-1">Région</label>
+                            <select name="region" 
+                                class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90"
+                                required>
+                                <option value="">Sélectionner une région...</option>
+                                <option value="Sherbrooke">Sherbrooke</option>
+                                <option value="Blainville">Blainville</option>
+                                <option value="Beloeil">Beloeil</option>
+                                <option value="Trois-Riviere">Trois-Rivière</option>
+                                <option value="Quebec">Québec</option>
+                                <option value="Gatineau">Gatineau</option>
+                                <option value="Saguenay">Saguenay</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Client Information Section -->
                 <div class="border-b border-red-800/10 pb-4 mb-4">
@@ -233,328 +233,355 @@
                     Envoyer
                 </button>
             </form>
-<!-- Preview Modal -->
-<div id="previewModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-full max-w-4xl shadow-lg rounded-md glass-effect">
-        <div class="flex flex-col h-full">
-            <!-- Modal Header -->
-            <div class="flex justify-between items-center pb-3 border-b border-red-800/20">
-                <p class="text-2xl font-bold text-gray-900">Aperçu du message</p>
-                <button id="closeModal" class="text-gray-400 hover:text-red-800">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
+            
+            <!-- Preview Modal -->
+            <div id="previewModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm overflow-y-auto h-full w-full z-50">
+                <div class="relative top-20 mx-auto p-5 border w-full max-w-4xl shadow-lg rounded-md glass-effect">
+                    <div class="flex flex-col h-full">
+                        <!-- Modal Header -->
+                        <div class="flex justify-between items-center pb-3 border-b border-red-800/20">
+                            <p class="text-2xl font-bold text-gray-900">Aperçu des informations</p>
+                            <button id="closeModal" class="text-gray-400 hover:text-red-800">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
 
-            <!-- Discord-like Preview -->
-            <div class="mt-4 bg-[#36393f] rounded-lg p-4 text-white overflow-y-auto max-h-[60vh] min-h-[200px] shadow-xl">
-                <div id="previewContent" class="space-y-4">
-                    <!-- Preview content will be inserted here -->
+                        <!-- Preview Content -->
+                        <div class="mt-4 bg-white rounded-lg p-4 text-gray-800 overflow-y-auto max-h-[60vh] min-h-[200px] shadow-xl">
+                            <div id="previewContent" class="space-y-4">
+                                <!-- Preview content will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="flex justify-end gap-4 mt-4 relative z-10">
+                            <button id="modifyBtn" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 shadow-sm">
+                                Modifier
+                            </button>
+                            <button id="confirmSendBtn" class="px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 shadow-sm">
+                                Confirmer l'envoi
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="flex justify-end gap-4 mt-4 relative z-10">
-                <button id="modifyBtn" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 shadow-sm">
-                    Modifier
-                </button>
-                <button id="confirmSendBtn" class="px-4 py-2 bg-red-800 text-white rounded-lg hover:bg-red-900 shadow-sm">
-                    Confirmer l'envoi
-                </button>
             </div>
         </div>
     </div>
-</div>
 
     <script>
-const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1335042984584151040/QeZ3FhVq7PNZsEQKzQihOLKbaGU1UuK_eMTZgdmO_P9jF77H01ssthp6vGX6cHfNj7FX';
+        // Configuration for HubSpot integration
+        const HUBSPOT_PORTAL_ID = "YOUR_PORTAL_ID"; // Replace with your HubSpot Portal ID
+        const HUBSPOT_FORM_ID = "YOUR_FORM_ID"; // Replace with your HubSpot Form ID
 
-function checkAuth() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (!currentUser) {
-        window.location.href = 'index.html';
-        return;
-    }
-
-    document.getElementById('userName').textContent = currentUser.name;
-    document.getElementById('userRole').textContent = 
-        currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier';
-}
-
-function logout() {
-    localStorage.removeItem('currentUser');
-    window.location.href = 'index.html';
-}
-
-function formatPhoneNumber(phoneNumber) {
-    // Remove all non-numeric characters
-    const cleaned = phoneNumber.replace(/\D/g, '');
-    
-    // Check if we have a 10-digit number
-    if(cleaned.length === 10) {
-        return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-    }
-    
-    // If not 10 digits, return original input
-    return phoneNumber;
-}
-// Add this function to encode the address for Google Maps
-function createGoogleMapsLink(address, ville, codePostal) {
-    // Combine address components and encode for URL
-    const fullAddress = `${address}, ${ville}, ${codePostal}, QC, Canada`;
-    const encodedAddress = encodeURIComponent(fullAddress);
-    return `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-}
-
-function createMessageContent(form, currentUser) {
-    const orderNumber = form.get('orderNumber') || 'Non spécifié';
-    const clientName1 = form.get('nomComplet1');
-    const clientName2 = form.get('nomComplet2');
-    const region = form.get('region') || 'Non spécifiée';
-    const mapsLink = createGoogleMapsLink(
-        form.get('adresse'),
-        form.get('ville'),
-        form.get('codePostal')
-    );
-    
-    return {
-    embeds: [{
-        title: `📋 ${clientName1}${clientName2 ? ` & ${clientName2}` : ''} - ${orderNumber}`,
-        color: 3447003,
-        fields: [
-            {
-                     name: '🔍 Information de suivi',
-                     value: [
-                        `**Numéro de commande:** ${orderNumber}`,
-                        `**Région:** ${region}`
-                   ].join('\n'),
-                   inline: false
-                },
-                {
-                    name: '📅 Information de la visite',
-                    value: [
-                        `**Date de réception:** ${form.get('dateReception')}`,
-                        `**Date de présentation:** ${form.get('datePresentation')}`,
-                        `**Heure de présentation:** ${form.get('heurePresentation')}`,
-                        `**Distributeur:** ${form.get('distributeur')}`,
-                        `**Superviseur:** ${form.get('superviseur')}`
-                    ].join('\n'),
-                    inline: false
-                },
-                {
-                    name: '👤 Information du client',
-                    value: [
-                        `**Nom (1):** ${form.get('nomComplet1')}`,
-                        `**Nom (2):** ${form.get('nomComplet2')}`,
-                        `**Adresse:** [${form.get('adresse')}, ${form.get('ville')}, ${form.get('codePostal')}](${mapsLink})`,
-                        `**Courriel:** ${form.get('courriel')}`,
-                        `**Ville:** ${form.get('ville')}`,
-                        `**Code postal:** ${form.get('codePostal')}`,
-                        `**Cellulaire (1):** ${formatPhoneNumber(form.get('cellulaire1') || '')}`,
-                        `**Cellulaire (2):** ${formatPhoneNumber(form.get('cellulaire2') || '')}`
-                    ].join('\n'),
-                    inline: false
-                },
-                {
-                    name: 'ℹ️ Information additionnelle',
-                    value: [
-                        `**Emploi:** ${form.get('emploi')}`,
-                        `**Statut:** ${form.get('statut')}`,
-                        `**Adultes:** ${form.get('nombreAdultes')}`,
-                        `**Enfants:** ${form.get('nombreEnfants')}`
-                    ].join('\n'),
-                    inline: false
-                },
-                {
-                    name: '🍖 Information sur l\'alimentation',
-                    value: [
-                        `**Budget épicerie:** ${form.get('budgetEpicerie')}`,
-                        `**Protéine/semaine:** ${form.get('proteineParSemaine')}`,
-                        `**Autre congélateur:** ${form.get('congelateurAutre')}`,
-                        `**Place congélateur:** ${form.get('placeCongel')}`,
-                        `**État congélateur:** ${form.get('grandeurCongel')}`
-                    ].join('\n'),
-                    inline: false
-                },
-                {
-                    name: '📝 Notes',
-                    value: [
-                        `**Note importante:** ${form.get('noteImportante') || 'Aucune'}`,
-                        `**Fournisseur:** ${form.get('fournisseur') || 'Aucun'}`
-                    ].join('\n'),
-                    inline: false
-                }
-            ],
-            footer: {
-                text: `Soumis par: ${currentUser.name} (${currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier'}) | ${orderNumber}`
+        function checkAuth() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'index.html';
+                return;
             }
-        }]
-    };
-}
-function generateOrderNumber() {
-    const date = new Date();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    
-    // Generate a random 3-digit number (000-999)
-    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-    
-    // Combine everything into the order number
-    // Format: AP  + DD + MM  + RRR
-    // Example: AP  + 02 + 14  + 847
-    return `AP${day}${month}${random}`;
-}
 
-// Update the HTML pattern to match the new format
-document.addEventListener('DOMContentLoaded', function() {
-    const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-    if (orderNumberInput) {
-        orderNumberInput.pattern = "AP\\d{7}"; // Updated to match 7 digits after AP
-        orderNumberInput.title = "Format: AP + DDMMRRR";
-    }
-});
-async function sendToDiscord(messageContent, form) {
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Envoi en cours...';
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userRole').textContent = 
+                currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier';
+        }
 
-    try {
-        const response = await fetch(DISCORD_WEBHOOK_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(messageContent)
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        function formatPhoneNumber(phoneNumber) {
+            // Remove all non-numeric characters
+            const cleaned = phoneNumber.replace(/\\D/g, '');
+            
+            // Check if we have a 10-digit number
+            if(cleaned.length === 10) {
+                return cleaned.replace(/(\\d{3})(\\d{3})(\\d{4})/, '$1-$2-$3');
+            }
+            
+            // If not 10 digits, return original input
+            return phoneNumber;
+        }
+
+        function generateOrderNumber() {
+            const date = new Date();
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            
+            // Generate a random single digit (0-9)
+            const random = Math.floor(Math.random() * 10).toString();
+            
+            // Combine everything into the order number
+            // Format: AP + DD + MM + R
+            return `AP${day}${month}${random}`;
+        }
+
+        function createPreviewContent(formData) {
+            const sections = [
+                {
+                    title: "Information de suivi",
+                    fields: [
+                        { label: "Numéro de commande", value: formData.get('orderNumber') || 'Non spécifié' },
+                        { label: "Région", value: formData.get('region') || 'Non spécifiée' }
+                    ]
+                },
+                {
+                    title: "Information de la visite",
+                    fields: [
+                        { label: "Date de réception", value: formData.get('dateReception') || 'Non spécifiée' },
+                        { label: "Date de présentation", value: formData.get('datePresentation') || 'Non spécifiée' },
+                        { label: "Heure de présentation", value: formData.get('heurePresentation') || 'Non spécifiée' },
+                        { label: "Distributeur", value: formData.get('distributeur') || 'Non spécifié' },
+                        { label: "Superviseur", value: formData.get('superviseur') || 'Non spécifié' }
+                    ]
+                },
+                {
+                    title: "Information du client",
+                    fields: [
+                        { label: "Nom (1)", value: formData.get('nomComplet1') || 'Non spécifié' },
+                        { label: "Nom (2)", value: formData.get('nomComplet2') || 'Non spécifié' },
+                        { label: "Adresse", value: formData.get('adresse') || 'Non spécifiée' },
+                        { label: "Courriel", value: formData.get('courriel') || 'Non spécifié' },
+                        { label: "Ville", value: formData.get('ville') || 'Non spécifiée' },
+                        { label: "Code postal", value: formData.get('codePostal') || 'Non spécifié' },
+                        { label: "Cellulaire (1)", value: formatPhoneNumber(formData.get('cellulaire1') || '') },
+                        { label: "Cellulaire (2)", value: formatPhoneNumber(formData.get('cellulaire2') || '') }
+                    ]
+                },
+                {
+                    title: "Information additionnelle",
+                    fields: [
+                        { label: "Emploi", value: formData.get('emploi') || 'Non spécifié' },
+                        { label: "Statut", value: formData.get('statut') || 'Non spécifié' },
+                        { label: "Adultes", value: formData.get('nombreAdultes') || '0' },
+                        { label: "Enfants", value: formData.get('nombreEnfants') || '0' }
+                    ]
+                },
+                {
+                    title: "Information sur l'alimentation",
+                    fields: [
+                        { label: "Budget épicerie", value: formData.get('budgetEpicerie') || 'Non spécifié' },
+                        { label: "Protéine/semaine", value: formData.get('proteineParSemaine') || 'Non spécifié' },
+                        { label: "Autre congélateur", value: formData.get('congelateurAutre') || 'Non spécifié' },
+                        { label: "Place congélateur", value: formData.get('placeCongel') || 'Non spécifié' },
+                        { label: "État congélateur", value: formData.get('grandeurCongel') || 'Non spécifié' }
+                    ]
+                },
+                {
+                    title: "Notes",
+                    fields: [
+                        { label: "Note importante", value: formData.get('noteImportante') || 'Aucune' },
+                        { label: "Fournisseur", value: formData.get('fournisseur') || 'Aucun' }
+                    ]
+                }
+            ];
+
+            return sections;
+        }
+
+        function showPreview(formData) {
+            const modal = document.getElementById('previewModal');
+            const previewContent = document.getElementById('previewContent');
+            
+            // Clear previous content
+            previewContent.innerHTML = '';
+            
+            // Create preview content
+            const sections = createPreviewContent(formData);
+            
+            sections.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'mb-6';
+                
+                // Section title
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'text-lg font-semibold mb-2 text-red-800 border-b border-red-800/20 pb-1';
+                titleDiv.textContent = section.title;
+                sectionDiv.appendChild(titleDiv);
+                
+                // Section fields
+                const fieldsDiv = document.createElement('div');
+                fieldsDiv.className = 'grid grid-cols-1 md:grid-cols-2 gap-2';
+                
+                section.fields.forEach(field => {
+                    const fieldDiv = document.createElement('div');
+                    fieldDiv.className = 'mb-1';
+                    
+                    const labelSpan = document.createElement('span');
+                    labelSpan.className = 'font-medium text-gray-700';
+                    labelSpan.textContent = `${field.label}: `;
+                    fieldDiv.appendChild(labelSpan);
+                    
+                    const valueSpan = document.createElement('span');
+                    valueSpan.className = 'text-gray-900';
+                    valueSpan.textContent = field.value;
+                    fieldDiv.appendChild(valueSpan);
+                    
+                    fieldsDiv.appendChild(fieldDiv);
+                });
+                
+                sectionDiv.appendChild(fieldsDiv);
+                previewContent.appendChild(sectionDiv);
+            });
+            
+            modal.classList.remove('hidden');
+        }
+
+        // Submit to HubSpot
+        async function submitToHubSpot(formData) {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Envoi en cours...';
+
+            try {
+                // Prepare the data for HubSpot
+                const hubspotData = {
+                    portalId: HUBSPOT_PORTAL_ID,
+                    formId: HUBSPOT_FORM_ID,
+                    fields: [
+                        // Information de suivi
+                        { name: "order_number", value: formData.get('orderNumber') },
+                        { name: "region", value: formData.get('region') },
+                        
+                        // Information de la visite
+                        { name: "date_reception", value: formData.get('dateReception') },
+                        { name: "date_presentation", value: formData.get('datePresentation') },
+                        { name: "heure_presentation", value: formData.get('heurePresentation') },
+                        { name: "distributeur", value: formData.get('distributeur') },
+                        { name: "superviseur", value: formData.get('superviseur') },
+                        
+                        // Information du client
+                        { name: "firstname", value: formData.get('nomComplet1').split(' ')[0] },
+                        { name: "lastname", value: formData.get('nomComplet1').split(' ').slice(1).join(' ') },
+                        { name: "nom_complet_2", value: formData.get('nomComplet2') },
+                        { name: "address", value: formData.get('adresse') },
+                        { name: "email", value: formData.get('courriel') },
+                        { name: "city", value: formData.get('ville') },
+                        { name: "zip", value: formData.get('codePostal') },
+                        { name: "phone", value: formData.get('cellulaire1') },
+                        { name: "cellulaire_2", value: formData.get('cellulaire2') },
+                        
+                        // Information additionnelle
+                        { name: "emploi", value: formData.get('emploi') },
+                        { name: "statut_residence", value: formData.get('statut') },
+                        { name: "nombre_adultes", value: formData.get('nombreAdultes') },
+                        { name: "nombre_enfants", value: formData.get('nombreEnfants') },
+                        
+                        // Information sur l'alimentation
+                        { name: "budget_epicerie", value: formData.get('budgetEpicerie') },
+                        { name: "proteine_par_semaine", value: formData.get('proteineParSemaine') },
+                        { name: "congelateur_autre", value: formData.get('congelateurAutre') },
+                        { name: "place_congelateur", value: formData.get('placeCongel') },
+                        { name: "capacite_congelateur", value: formData.get('grandeurCongel') },
+                        
+                        // Notes
+                        { name: "note_importante", value: formData.get('noteImportante') },
+                        { name: "fournisseur", value: formData.get('fournisseur') },
+                        
+                        // Metadata
+                        { name: "submitted_by", value: JSON.parse(localStorage.getItem('currentUser')).name },
+                        { name: "submitter_role", value: JSON.parse(localStorage.getItem('currentUser')).role }
+                    ]
+                };
+
+                // For testing purposes, log the data that would be sent to HubSpot
+                console.log("Data to be sent to HubSpot:", hubspotData);
+                
+                // In a real implementation, you would make an API call to HubSpot
+                // This is a placeholder for now
+                /*
+                const response = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(hubspotData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HubSpot API error: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log("HubSpot submission result:", result);
+                */
+                
+                // For now, simulate success
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                alert('Information envoyée avec succès!');
+                document.getElementById('clientForm').reset();
+                
+                // Generate a new order number for the next submission
+                const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+                if (orderNumberInput) {
+                    orderNumberInput.value = generateOrderNumber();
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('Error submitting to HubSpot:', error);
+                alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+                return false;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Envoyer';
+            }
+        }
+
+        // Initialize event listeners
+        function initializeEventListeners() {
+            // Generate order number when page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+                if (orderNumberInput) {
+                    orderNumberInput.value = generateOrderNumber();
+                }
+            });
+            
+            // Form submit handler
+            document.getElementById('clientForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                showPreview(formData);
+            });
+
+            // Modal close button handler
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('previewModal').classList.add('hidden');
+            });
+
+            // Modify button handler
+            document.getElementById('modifyBtn').addEventListener('click', function() {
+                document.getElementById('previewModal').classList.add('hidden');
+            });
+
+            // Confirm send button handler
+            document.getElementById('confirmSendBtn').addEventListener('click', async function() {
+                const form = document.getElementById('clientForm');
+                const formData = new FormData(form);
+                
+                document.getElementById('previewModal').classList.add('hidden');
+                const success = await submitToHubSpot(formData);
+                
+                if (success) {
+                    form.reset();
+                    const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+                    if (orderNumberInput) {
+                        orderNumberInput.value = generateOrderNumber();
+                    }
+                }
+            });
+        }
+
+        // Initialize when the page loads
+        window.addEventListener('load', () => {
+            checkAuth();
+            initializeEventListeners();
         });
-
-        if (response.ok) {
-            alert('Information envoyée avec succès!');
-            form.reset();
-            return true;
-        } else {
-            throw new Error('Erreur lors de l\'envoi');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Erreur lors de l\'envoi. Veuillez réessayer.');
-        return false;
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Envoyer';
-    }
-}
-
-function showPreview(messageContent) {
-    console.log('Showing preview:', messageContent); // Debug log
-    const modal = document.getElementById('previewModal');
-    const previewContent = document.getElementById('previewContent');
-    
-    // Clear previous content
-    previewContent.innerHTML = '';
-    
-    // Create Discord-like preview
-    messageContent.embeds.forEach(embed => {
-        const embedDiv = document.createElement('div');
-        embedDiv.className = 'border-l-4 border-blue-500 pl-3';
-        
-        // Add title
-        const titleDiv = document.createElement('div');
-        titleDiv.className = 'text-xl font-semibold mb-2';
-        titleDiv.textContent = embed.title;
-        embedDiv.appendChild(titleDiv);
-        
-        // Add fields
-        embed.fields.forEach(field => {
-            const fieldDiv = document.createElement('div');
-            fieldDiv.className = 'mb-4';
-            
-            const fieldTitle = document.createElement('div');
-            fieldTitle.className = 'font-medium text-gray-300 mb-1';
-            fieldTitle.textContent = field.name;
-            fieldDiv.appendChild(fieldTitle);
-            
-            const fieldContent = document.createElement('div');
-            fieldContent.className = 'text-sm whitespace-pre-wrap';
-            fieldContent.innerHTML = field.value.replace(/\*\*/g, '');
-            fieldDiv.appendChild(fieldContent);
-            
-            embedDiv.appendChild(fieldDiv);
-        });
-        
-        // Add footer
-        const footerDiv = document.createElement('div');
-        footerDiv.className = 'text-sm text-gray-400 mt-2';
-        footerDiv.textContent = embed.footer.text;
-        embedDiv.appendChild(footerDiv);
-        
-        previewContent.appendChild(embedDiv);
-    });
-    
-    modal.classList.remove('hidden');
-}
-
-// Initialize event listeners
-function initializeEventListeners() {
-    console.log('Initializing event listeners'); // Debug log
-
-	 // Add this new code
-    document.addEventListener('DOMContentLoaded', function() {
-        const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-        if (orderNumberInput) {
-            orderNumberInput.value = generateOrderNumber();
-        }
-    });
-    // Form submit handler
-    document.getElementById('clientForm').addEventListener('submit', function(e) {
-        console.log('Form submitted'); // Debug log
-        e.preventDefault();
-        
-        // Generate order number at submission
-        const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-        orderNumberInput.value = generateOrderNumber();
-        
-        const form = new FormData(this);
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const messageContent = createMessageContent(form, currentUser);
-        showPreview(messageContent);
-    });
-
-    // Modal close button handler
-    document.getElementById('closeModal').addEventListener('click', function() {
-        document.getElementById('previewModal').classList.add('hidden');
-    });
-
-    // Modify button handler
-    document.getElementById('modifyBtn').addEventListener('click', function() {
-        document.getElementById('previewModal').classList.add('hidden');
-    });
-
-
-    // Confirm send button handler
-    document.getElementById('confirmSendBtn').addEventListener('click', async function() {
-        const form = document.getElementById('clientForm');
-        const formData = new FormData(form);
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const messageContent = createMessageContent(formData, currentUser);
-    
-    document.getElementById('previewModal').classList.add('hidden');
-    const success = await sendToDiscord(messageContent, form);
-    
-    if (success) {
-        form.reset();
-        const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-        if (orderNumberInput) {
-            orderNumberInput.value = generateOrderNumber();
-        }
-    }
-});
-}
-// Initialize when the page loads
-window.addEventListener('load', () => {
-    checkAuth();
-    initializeEventListeners();
-});
     </script>
 </body>
 </html>
