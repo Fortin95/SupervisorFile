@@ -67,7 +67,7 @@
         <div id="loginForm" class="glass-effect">
             <div class="text-center">
                 <h2 class="text-3xl font-bold text-gray-900">Connexion</h2>
-                <p class="mt-2 text-sm text-gray-600">Accès portier & superviseur</p>
+                <p class="mt-2 text-sm text-gray-600">Accès Distributeur & Superviseur</p>
             </div>
             <form class="mt-8 space-y-6" onsubmit="return handleLogin(event)">
                 <div class="space-y-4">
@@ -98,8 +98,9 @@
     <script>
         // Static user accounts (to be replaced with HubSpot API later)
         const USERS = [
-            { email: "Fortin9562@gmail.com", password: "Thunderr!95", name: "Yan Fortin", role: "Distributeur" },
+            { email: "distributeur@exemple.com", password: "motdepasse123", name: "Yan Fortin", role: "Distributeur" },
             { email: "superviseur@exemple.com", password: "motdepasse123", name: "Marie Superviseur", role: "Superviseur" }
+            { email: "Fortin9562@gmail.com", password: "Thunderr!95", name: "Yan Fortin", role: "Admin" },
         ];
 
         // Handle Login
