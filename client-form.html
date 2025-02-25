@@ -55,12 +55,12 @@
                             <label class="block text-gray-700 text-sm font-medium mb-1">Heure de la présentation</label>
                             <select name="heurePresentation" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90" required>
                                 <option value="">Sélectionner une heure...</option>
-                                <option value="09:00">09:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="19:00">19:00</option>
+                                <option value="9H">09:00</option>
+                                <option value="11H">11:00</option>
+                                <option value="13H">13:00</option>
+                                <option value="15H">15:00</option>
+                                <option value="17H">17:00</option>
+                                <option value="19H">19:00</option>
                             </select>
                         </div>
                         <div>
@@ -80,8 +80,8 @@
                             <label class="block text-gray-700 text-sm font-medium mb-1">Numéro de commande</label>
                             <input type="text" name="orderNumber" 
                                 class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90 cursor-not-allowed"
-                                pattern="AP\d{5}"
-                                title="Format: AP + DDMMR"
+                                pattern="AP\d{7}"
+                                title="Format: AP + DDMMRRR"
                                 readonly
                                 required>
                             <p class="text-sm text-gray-500 mt-1">Généré automatiquement</p>
@@ -332,8 +332,8 @@
             const random = Math.floor(Math.random() * 10).toString();
             
             // Combine everything into the order number
-            // Format: AP + DD + MM + R
-            return `AP${day}${month}${random}`;
+            // Format: AP + DD + MM + RRR
+            return `AP${day}${month}${random}${random}${random}`;
         }
 
         function createPreviewContent(formData) {
@@ -481,10 +481,10 @@
                         { name: "conjoint_e_", value: formData.get('nomComplet2') },
                         { name: "adresse", value: formData.get('adresse') },
                         { name: "email", value: formData.get('courriel') },
-                        { name: "city", value: formData.get('ville') || '' },
+                        { name: "emplacement", value: formData.get('ville') || '' },
                         { name: "ville", value: formData.get('ville') || '' },
                         { name: "zip", value: formData.get('codePostal') },
-                        { name: "phone", value: formatPhoneNumberForHubSpot(formData.get('cellulaire1') || '') },
+                        { name: "numero_de_telephone", value: formatPhoneNumberForHubSpot(formData.get('cellulaire1') || '') },
                         { name: "cell_conjoint_e_", value: formatPhoneNumberForHubSpot(formData.get('cellulaire2') || '') },
                         
                         // Information additionnelle
