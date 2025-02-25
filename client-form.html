@@ -289,7 +289,26 @@
             // If not 10 digits, return original input
             return phoneNumber;
         }
-
+        
+        // Pour l'envoi à HubSpot (au format E.164)
+        function formatPhoneNumberForHubSpot(phoneNumber) {
+            // Enlever tous les caractères non numériques
+            const cleaned = phoneNumber.replace(/\D/g, '');
+    
+            // Si nous avons 10 chiffres, ajouter le code de pays +1
+            if(cleaned.length === 10) {
+                return `+1${cleaned}`;
+            }
+    
+            // Si le numéro commence déjà par 1 et a 11 chiffres, ajoutez +
+            if(cleaned.length === 11 && cleaned.charAt(0) === '1') {
+            return `+${cleaned}`;
+            }
+    
+            // Sinon retourner tel quel
+            return phoneNumber;
+        }
+        
         function generateOrderNumber() {
             const date = new Date();
             const day = date.getDate().toString().padStart(2, '0');
@@ -331,8 +350,8 @@
                         { label: "Courriel", value: formData.get('courriel') || 'Non spécifié' },
                         { label: "Ville", value: formData.get('ville') || 'Non spécifiée' },
                         { label: "Code postal", value: formData.get('codePostal') || 'Non spécifié' },
-                        { label: "Cellulaire (1)", value: formatPhoneNumber(formData.get('cellulaire1') || '') },
-                        { label: "Cellulaire (2)", value: formatPhoneNumber(formData.get('cellulaire2') || '') }
+                        { label: "Cellulaire (1)", value: formatPhoneNumberForDisplay(formData.get('cellulaire1') || '') },
+                        { label: "Cellulaire (2)", value: formatPhoneNumberForDisplay(formData.get('cellulaire2') || '') }
                     ]
                 },
                 {
@@ -438,7 +457,7 @@
                         // Information de la visite
                         { name: "date_de_reception", value: formData.get('dateReception') },
                         { name: "date_de_la_presentation", value: formData.get('datePresentation') },
-                        { name: "heure_de_presentation", value: formData.get('heurePresentation') },
+                        { name: "heure_de_presentation", value: formData.get('heurePresentation') || '') },
                         { name: "distributeur", value: formData.get('distributeur') },
                         { name: "superviseur", value: formData.get('superviseur') },
                         
@@ -448,10 +467,11 @@
                         { name: "conjoint_e_", value: formData.get('nomComplet2') },
                         { name: "adresse", value: formData.get('adresse') },
                         { name: "email", value: formData.get('courriel') },
-                        { name: "city", value: formData.get('ville'), objectTypeId: "0-1" },
+                        { name: "city", value: formData.get('ville') || '') },
+                        { name: "ville", value: formData.get('ville') || '') },
                         { name: "zip", value: formData.get('codePostal') },
-                        { name: "phone", value: formData.get('cellulaire1') },
-                        { name: "cell_conjoint_e_", value: formData.get('cellulaire2') },
+                        { name: "phone", value: formatPhoneNumberForHubSpot(formData.get('cellulaire1') || '') },
+                        { name: "cell_conjoint_e_", value: formatPhoneNumberForHubSpot(formData.get('cellulaire2') || '') },
                         
                         // Information additionnelle
                         { name: "emploi_du_client", value: formData.get('emploi') },
