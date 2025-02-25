@@ -268,9 +268,15 @@
             }
 
             document.getElementById('userName').textContent = currentUser.name;
-            document.getElementById('userRole').textContent = 
-                currentUser.role === 'supervisor' ? 'Superviseur' : 'Portier';
+            if (currentUser.role === 'supervisor' || currentUser.role === 'Superviseur') {
+                document.getElementById('userRole').textContent = 'Superviseur';
+            } else if (currentUser.role === 'Admin') {
+                document.getElementById('userRole').textContent = 'Admin';
+            } else {
+                document.getElementById('userRole').textContent = 'Distributeur';
+            }
         }
+
 
         function logout() {
             localStorage.removeItem('currentUser');
