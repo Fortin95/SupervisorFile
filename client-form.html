@@ -279,14 +279,28 @@
 
         function formatPhoneNumber(phoneNumber) {
             // Remove all non-numeric characters
-            const cleaned = phoneNumber.replace(/\\D/g, '');
+            const cleaned = phoneNumber.replace(/\D/g, '');
             
             // Check if we have a 10-digit number
             if(cleaned.length === 10) {
-                return cleaned.replace(/(\\d{3})(\\d{3})(\\d{4})/, '$1-$2-$3');
+                return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
             }
             
             // If not 10 digits, return original input
+            return phoneNumber;
+        }
+
+        // Pour l'affichage à l'utilisateur (avec tirets)
+        function formatPhoneNumberForDisplay(phoneNumber) {
+            // Enlever tous les caractères non numériques
+            const cleaned = phoneNumber.replace(/\D/g, '');
+    
+            // Si nous avons 10 chiffres, formatter avec tirets
+            if(cleaned.length === 10) {
+                return cleaned.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+            }
+    
+            // Sinon retourner tel quel
             return phoneNumber;
         }
         
@@ -467,8 +481,8 @@
                         { name: "conjoint_e_", value: formData.get('nomComplet2') },
                         { name: "adresse", value: formData.get('adresse') },
                         { name: "email", value: formData.get('courriel') },
-                        { name: "city", value: formData.get('ville') || '') },
-                        { name: "ville", value: formData.get('ville') || '') },
+                        { name: "city", value: formData.get('ville') || '' },
+                        { name: "ville", value: formData.get('ville') || '' },
                         { name: "zip", value: formData.get('codePostal') },
                         { name: "phone", value: formatPhoneNumberForHubSpot(formData.get('cellulaire1') || '') },
                         { name: "cell_conjoint_e_", value: formatPhoneNumberForHubSpot(formData.get('cellulaire2') || '') },
