@@ -77,15 +77,15 @@
                     <h2 class="text-lg font-bold mb-4 text-gray-900 border-b border-red-800/20 pb-2">Information de suivi</h2>
                     <div class="space-y-3"> 
                         <div>
-                            <label class="block text-gray-700 text-sm font-medium mb-1">Numéro de commande</label>
-                            <input type="text" name="orderNumber" 
-                                class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90 cursor-not-allowed"
-                                pattern="AP\d{7}"
-                                title="Format: AP + DDMMRRR"
-                                readonly
-                                required>
-                            <p class="text-sm text-gray-500 mt-1">Généré automatiquement</p>
-                        </div>
+                        <label class="block text-gray-700 text-sm font-medium mb-1">Numéro de commande</label>
+                        <input type="text" name="orderNumber" 
+                             class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90 cursor-not-allowed"
+                            pattern="AP\d{6}"
+                            title="Format: AP + 4 derniers chiffres du téléphone + 2 chiffres aléatoires"
+                            readonly
+                            required>
+                        <p class="text-sm text-gray-500 mt-1">Généré automatiquement</p>
+                    </div>
                         <div>
                             <label class="block text-gray-700 text-sm font-medium mb-1">Région</label>
                             <select name="region" 
@@ -122,10 +122,6 @@
                             <input type="text" name="adresse" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
                         </div>
                         <div>
-                            <label class="block text-gray-700 text-sm font-medium mb-1">Courriel</label>
-                            <input type="text" name="courriel" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
-                        </div>
-                        <div>
                             <label class="block text-gray-700 text-sm font-medium mb-1">Ville</label>
                             <input type="text" name="ville" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
                         </div>
@@ -140,6 +136,10 @@
                         <div>
                             <label class="block text-gray-700 text-sm font-medium mb-1">Cellulaire (2)</label>
                             <input type="tel" name="cellulaire2" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-medium mb-1">Courriel</label>
+                            <input type="text" name="courriel" class="w-full px-3 py-3 border rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-red-800 bg-white/90">
                         </div>
                     </div>
                 </div>
@@ -329,19 +329,23 @@
             return phoneNumber;
         }
         
-        function generateOrderNumber() {
-            const date = new Date();
-            const day = date.getDate().toString().padStart(2, '0');
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            
-            // Generate a random single digit (0-9)
-            const random = Math.floor(Math.random() * 10).toString();
-            
-            // Combine everything into the order number
-            // Format: AP + DD + MM + RRR
-            return `AP${day}${month}${random}${random}${random}`;
-        }
-
+        function generateOrderNumber(phoneNumber) {
+            // Vérifier si un numéro de téléphone a été fourni
+            if (!phoneNumber || typeof phoneNumber !== 'string' || phoneNumber.length < 4) {
+                throw new Error('Un numéro de téléphone valide est requis');
+            }
+    
+            // Extraire les 4 derniers chiffres du numéro de téléphone
+            const lastFourDigits = phoneNumber.slice(-4);
+    
+            // Générer 2 chiffres aléatoires (0-9)
+            const random1 = Math.floor(Math.random() * 10).toString();
+            const random2 = Math.floor(Math.random() * 10).toString();
+        
+            // Combiner le tout dans le numéro de commande
+            // Format: AP + LLLL + RR (où LLLL = 4 derniers chiffres du téléphone, RR = 2 chiffres aléatoires)
+            return `AP${lastFourDigits}${random1}${random2}`;
+         }
         function createPreviewContent(formData) {
             const sections = [
                 {
@@ -536,9 +540,10 @@
         
         // Generate a new order number for the next submission
         const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-        if (orderNumberInput) {
-            orderNumberInput.value = generateOrderNumber();
-        }
+        const phoneInput = document.querySelector('input[name="cellulaire1"]');
+        if (orderNumberInput && phoneInput && phoneInput.value) {
+        orderNumberInput.value = generateOrderNumber(phoneInput.value);
+    }
         
         return true;
     } catch (error) {
@@ -555,9 +560,10 @@
             // Generate order number when page loads
             document.addEventListener('DOMContentLoaded', function() {
                 const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-                if (orderNumberInput) {
-                    orderNumberInput.value = generateOrderNumber();
-                }
+                const phoneInput = document.querySelector('input[name="cellulaire1"]');
+                if (orderNumberInput && phoneInput && phoneInput.value) {
+                orderNumberInput.value = generateOrderNumber(phoneInput.value);
+            }
             });
             
             // Form submit handler
@@ -566,8 +572,9 @@
         
             // Regénérer le numéro de commande si vide
             const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-            if (orderNumberInput && !orderNumberInput.value) {
-                orderNumberInput.value = generateOrderNumber();
+            const phoneInput = document.querySelector('input[name="cellulaire1"]');
+            if (orderNumberInput && phoneInput && phoneInput.value) {
+            orderNumberInput.value = generateOrderNumber(phoneInput.value);
             }
         
             const formData = new FormData(this);
@@ -592,13 +599,14 @@
                 document.getElementById('previewModal').classList.add('hidden');
                 const success = await submitToHubSpot(formData);
                 
-                if (success) {
-                    form.reset();
-                    const orderNumberInput = document.querySelector('input[name="orderNumber"]');
-                    if (orderNumberInput) {
-                        orderNumberInput.value = generateOrderNumber();
-                    }
+            if (success) {
+                form.reset();
+                const orderNumberInput = document.querySelector('input[name="orderNumber"]');
+                const phoneInput = document.querySelector('input[name="cellulaire1"]');
+                if (orderNumberInput && phoneInput && phoneInput.value) {
+                orderNumberInput.value = generateOrderNumber(phoneInput.value);
                 }
+            }
             });
         }
 
